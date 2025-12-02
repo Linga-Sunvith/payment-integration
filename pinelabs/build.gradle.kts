@@ -1,6 +1,7 @@
 plugins {
 //    alias(libs.plugins.android.application)
-    id("com.android.library")
+    /*id("com.android.library")*/
+    alias(libs.plugins.android.library)
 }
 
 android {

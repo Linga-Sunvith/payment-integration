@@ -26,17 +26,18 @@ public class VoidViewModel extends ViewModel {
     public void voidPayment(VoidRequest req){
         state.setValue(VoidState.PROCESSING);
 
-        repo.voidTransaction(req, new retrofit2.Callback<VoidResponse>() {
-            @Override
-            public void onResponse(retrofit2.Call<VoidResponse> call, retrofit2.Response<VoidResponse> response) {
-                res1.setValue(response.body());
-                state.setValue(VoidState.APPROVED);
-            }
 
-            @Override
-            public void onFailure(retrofit2.Call<VoidResponse> call, Throwable t) {
-                state.setValue(VoidState.ERROR);
-            }
-        });
+//        repo.voidTransaction(req, new retrofit2.Callback<VoidResponse>() {
+//            @Override
+//            public void onResponse(retrofit2.Call<VoidResponse> call, retrofit2.Response<VoidResponse> response) {
+//                res1.setValue(response.body());
+//                state.setValue(VoidState.APPROVED);
+//            }
+//
+//            @Override
+//            public void onFailure(retrofit2.Call<VoidResponse> call, Throwable t) {
+//                state.setValue(VoidState.ERROR);
+//            }
+//        });
     }
 }

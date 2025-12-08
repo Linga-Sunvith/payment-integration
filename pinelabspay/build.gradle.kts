@@ -2,11 +2,13 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("maven-publish")
-    signing
+    id("signing")
 }
 
+version = "1.0.3" // ⭐ Required so publishing repo URL works
+
 android {
-    namespace = "com.nukkadshops.pinelabs"
+    namespace = "com.nukkadshops.pinelabspay"
     compileSdk = 36
 
     defaultConfig {
@@ -27,48 +29,27 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
+    }
 }
 
 publishing {
 
     publications {
         create<MavenPublication>("release") {
-
-            // Maven Central coordinates
             groupId = "io.github.linga-sunvith"
-            artifactId = "pinelabs"
-            version = "1.0.0"
+            artifactId = "pinelabspay"
+            version = "1.0.3"
+        }
 
-            // Publish AAR
-            afterEvaluate {
+        afterEvaluate {
+            publications.named<MavenPublication>("release") {
                 from(components["release"])
-            }
-
-            pom {
-                name.set("Pinelabs SDK")
-                description.set("Payment integration SDK for PineLabs Android terminals.")
-                url.set("https://github.com/Linga-Sunvith/payment-integration")
-
-                licenses {
-                    license {
-                        name.set("Apache 2.0 License")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0")
-                    }
-                }
-
-                scm {
-                    url.set("https://github.com/Linga-Sunvith/payment-integration")
-                    connection.set("scm:git:git://github.com/Linga-Sunvith/payment-integration.git")
-                    developerConnection.set("scm:git:ssh://github.com:Linga-Sunvith/payment-integration.git")
-                }
-
-                developers {
-                    developer {
-                        id.set("linga-sunvith")
-                        name.set("Sunvith")
-                        email.set("sunvithlinga22@gmail.com") // optional
-                    }
-                }
             }
         }
     }
@@ -76,7 +57,13 @@ publishing {
     repositories {
         maven {
             name = "sonatype"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            url = uri(
+                if (version.toString().endsWith("SNAPSHOT"))
+                    "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+                else
+                    "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            )
+
             credentials {
                 username = System.getenv("OSSRH_USERNAME")
                 password = System.getenv("OSSRH_PASSWORD")
@@ -90,12 +77,10 @@ signing {
         System.getenv("GPG_SIGNING_KEY"),
         System.getenv("GPG_SIGNING_PASSWORD")
     )
-
     sign(publishing.publications["release"])
 }
 
 dependencies {
-
     implementation(libs.appcompat)
     implementation(libs.material)
 

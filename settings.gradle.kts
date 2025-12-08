@@ -20,4 +20,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "payment_integration"
-include(":pinelabs")
+
+include(":pinelabspay")
+project(":pinelabspay")
+    //.projectDir = file("pinelabspay/pinelabspay")

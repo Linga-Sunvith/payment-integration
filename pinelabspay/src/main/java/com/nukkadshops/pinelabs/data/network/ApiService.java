@@ -15,15 +15,15 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
-    @POST("api/payment/pinelabs/upload")
+    @POST("api/payment/pinelabspay/upload")
     Call<UploadResponse> uploadResponseCall(@Body UploadRequest request);
 
-    @POST("api/payment/pinelabs/status")
+    @POST("api/payment/pinelabspay/status")
     Call<StatusResponse> statusResponseCall(@Body StatusRequest request);
 
-    @POST("api/payment/pinelabs/forceCancel")
+    @POST("api/payment/pinelabspay/forceCancel")
     Call<CancelResponse> cancelResponseCall(@Body CancelRequest request);
 
-    @POST("api/payment/pinelabs/void")
+    @POST("api/payment/pinelabspay/void")
     Call<VoidResponse> voidResponseCall(@Body VoidRequest request);
 }

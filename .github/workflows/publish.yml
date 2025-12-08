@@ -25,17 +25,16 @@ jobs:
           server-password: OSSRH_PASSWORD
 
       - name: Set up GPG
-        id: setup-gpg
         uses: crazy-max/ghaction-import-gpg@v6
         with:
           gpg_private_key: ${{ secrets.GPG_SIGNING_KEY }}
           passphrase: ${{ secrets.GPG_SIGNING_PASSWORD }}
 
-      - name: Grant execute permission for Gradle wrapper
-        run: chmod +x ./gradlew
+      - name: Make gradlew executable
+        run: chmod +x gradlew
 
       - name: Publish to Sonatype
-        run: ./gradlew publishReleasePublicationToSonatypeRepository closeAndReleaseSonatypeStagingRepository
+        run: ./gradlew publishReleasePublicationToSonatypeRepository
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}

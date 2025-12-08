@@ -4,7 +4,7 @@ plugins {
     id("com.vanniktech.maven.publish")
 }
 
-version = "1.0.6"  // IMPORTANT — bump when publishing
+version = "v1.0.7"
 
 android {
     namespace = "com.nukkadshops.pinelabspay"
@@ -28,20 +28,11 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-
-    // ⭐ REQUIRED — tells Vanniktech plugin what to publish
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
 }
 
 dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
-
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:okhttp:4.11.0")

@@ -4,7 +4,7 @@ plugins {
     id("com.vanniktech.maven.publish")
 }
 
-version = "v1.0.5"
+version = "1.0.6"  // IMPORTANT — bump when publishing
 
 android {
     namespace = "com.nukkadshops.pinelabspay"
@@ -27,6 +27,14 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+
+    // ⭐ REQUIRED — tells Vanniktech plugin what to publish
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 }
 

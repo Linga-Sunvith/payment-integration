@@ -1,11 +1,10 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
-    id("maven-publish")
-    id("signing")
+    id("com.vanniktech.maven.publish")
 }
 
-version = "1.0.3" // ⭐ Required so publishing repo URL works
+version = "1.0.3"
 
 android {
     namespace = "com.nukkadshops.pinelabspay"
@@ -29,55 +28,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
-
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
-}
-
-publishing {
-
-    publications {
-        create<MavenPublication>("release") {
-            groupId = "io.github.linga-sunvith"
-            artifactId = "pinelabspay"
-            version = "1.0.3"
-        }
-
-        afterEvaluate {
-            publications.named<MavenPublication>("release") {
-                from(components["release"])
-            }
-        }
-    }
-
-    repositories {
-        maven {
-            name = "sonatype"
-            url = uri(
-                if (version.toString().endsWith("SNAPSHOT"))
-                    "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-                else
-                    "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-            )
-
-            credentials {
-                username = System.getenv("OSSRH_USERNAME")
-                password = System.getenv("OSSRH_PASSWORD")
-            }
-        }
-    }
-}
-
-signing {
-    useInMemoryPgpKeys(
-        System.getenv("GPG_SIGNING_KEY"),
-        System.getenv("GPG_SIGNING_PASSWORD")
-    )
-    sign(publishing.publications["release"])
 }
 
 dependencies {

@@ -3,6 +3,7 @@ plugins {
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
     alias(libs.plugins.android.library) apply false
     id("org.jetbrains.kotlin.android") version "1.9.22" apply false
+    id("com.vanniktech.maven.publish") version "0.28.0"
 }
 nexusPublishing {
     repositories {

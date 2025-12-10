@@ -3,8 +3,8 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.vanniktech.maven.publish")
 }
-
-version = "v1.0.7"
+group = "io.github.sunvith"
+version = "1.0.7"
 
 android {
     namespace = "com.nukkadshops.pinelabspay"
